@@ -37,8 +37,7 @@ export default function CalendarView({ classId, tasks }) {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-6 sm:p-8">
-      
+    <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8">
       <div className="w-full bg-white/90 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm">
         <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center text-gray-600">
           <div className="uppercase">Pn</div>
@@ -82,7 +81,7 @@ export default function CalendarView({ classId, tasks }) {
         </div>
       </div>
 
-      <div className="mb-8 text-center"> 
+      <div className="mt-6 sm:mt-8 mb-4 text-center"> 
         <p className="text-gray-600 text-sm sm:text-base">
           Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
         </p>

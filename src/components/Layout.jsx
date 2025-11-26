@@ -17,7 +17,7 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 sm:py-12">
+      <main className="container mx-auto px-4 py-4 sm:py-6">
         {children}
       </main>
 
