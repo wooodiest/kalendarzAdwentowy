@@ -1,6 +1,7 @@
 const imageModules = import.meta.glob('../data/klasa*/**/*.{png,jpg,jpeg}', {
   eager: true,
-  as: 'url',
+  query: '?url',
+  import: 'default',
 });
 
 const imageMap = {};
