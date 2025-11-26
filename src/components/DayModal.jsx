@@ -8,11 +8,11 @@ export default function DayModal({ show, onClose, task, day, classId }) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-2 sm:px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-winter-dark/70 backdrop-blur-sm px-2 sm:px-4"
       onClick={onClose}
     >
       <div 
-        className="inline-block bg-winter-light rounded-xl shadow-2xl overflow-hidden max-w-4xl"
+        className="inline-block bg-white rounded-xl shadow-2xl overflow-hidden max-w-4xl border border-winter-light"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="bg-gradient-to-r from-winter-blue to-winter-dark text-white px-4 sm:px-2 py-3 sm:py-2 flex items-center justify-between">
@@ -27,7 +27,7 @@ export default function DayModal({ show, onClose, task, day, classId }) {
             <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
-        <div className="bg-winter-light p-3 sm:p-4">
+        <div className="bg-white p-3 sm:p-4">
           <div className="flex justify-center">
             {imageUrl ? (
               <img

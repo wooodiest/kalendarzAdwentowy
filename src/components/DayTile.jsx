@@ -5,8 +5,8 @@ export default function DayTile({ day, onClick, isUnlocked: unlocked, isWeekend 
     'relative aspect-square rounded-xl shadow-md transition-all duration-300 flex flex-col items-center justify-center p-5 sm:p-6';
 
   const unlockedClasses = unlocked
-    ? 'bg-gradient-to-br from-winter-blue to-winter-dark text-white cursor-pointer hover:scale-105 hover:shadow-xl transform'
-    : 'bg-gray-200 text-gray-500 cursor-not-allowed opacity-70';
+    ? 'bg-gradient-to-br from-winter-blue to-winter-dark text-white cursor-pointer hover:scale-105 hover:shadow-xl transform hover:from-winter-blue-light hover:to-winter-blue-dark'
+    : 'bg-winter-light text-winter-dark/60 cursor-not-allowed border border-winter-light';
 
   const clickable = unlocked && !isWeekend;
 

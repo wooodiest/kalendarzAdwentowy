@@ -38,13 +38,13 @@ export default function CalendarView({ classId, tasks }) {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8">
-      <div className="w-full bg-white/90 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm">
-        <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center text-gray-600">
-          <div className="uppercase">Pn</div>
-          <div className="uppercase">Wt</div>
-          <div className="uppercase">Śr</div>
-          <div className="uppercase">Cz</div>
-          <div className="uppercase">Pt</div>
+      <div className="w-full bg-white/95 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm border border-winter-light">
+        <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center">
+          <div className="uppercase text-winter-dark">Pn</div>
+          <div className="uppercase text-winter-dark">Wt</div>
+          <div className="uppercase text-winter-dark">Śr</div>
+          <div className="uppercase text-winter-dark">Cz</div>
+          <div className="uppercase text-winter-dark">Pt</div>
           <div className="uppercase text-gray-400">So</div>
           <div className="uppercase text-gray-400">Nd</div>
         </div>
@@ -82,7 +82,7 @@ export default function CalendarView({ classId, tasks }) {
       </div>
 
       <div className="mt-6 sm:mt-8 mb-4 text-center"> 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-winter-dark/70 text-sm sm:text-base">
           Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
         </p>
       </div>
