@@ -1,10 +1,14 @@
-export default function DayModal({ show, onClose, task, day }) {
+import { getTaskImage } from '../utils/imageRegistry';
+
+export default function DayModal({ show, onClose, task, day, classId }) {
   if (!show || !task) return null;
 
+  const imageUrl = getTaskImage(classId, day);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="w-full max-w-md mx-4 rounded-xl shadow-2xl overflow-hidden bg-winter-light">
-        <div className="bg-gradient-to-r from-winter-blue to-winter-dark text-white px-6 py-4 flex items-center justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-2 sm:px-4">
+      <div className="inline-block bg-winter-light rounded-xl shadow-2xl overflow-hidden max-w-4xl">
+        <div className="bg-gradient-to-r from-winter-blue to-winter-dark text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <span className="text-xl font-bold">
             Dzień {day} - {task.title}
           </span>
@@ -16,27 +20,25 @@ export default function DayModal({ show, onClose, task, day }) {
             ×
           </button>
         </div>
-        <div className="px-6 py-6 bg-winter-light">
-          <div className="text-center py-4 space-y-4">
-            <p className="text-3xl font-bold text-winter-dark mb-2">
-              {task.content}
-            </p>
-            {task.image && (
+        <div className="bg-winter-light p-3 sm:p-4">
+          <div className="flex justify-center">
+            {imageUrl ? (
               <img
-                src={task.image}
-                alt={`Task for day ${day}`}
-                className="mx-auto max-w-full h-auto rounded-lg shadow-lg"
+                src={imageUrl}
+                alt={`Zadanie dla dnia ${day}`}
+                className="max-h-[80vh] max-w-full object-contain rounded-lg shadow-lg bg-white"
               />
+            ) : (
+              <div className="px-6 py-10 text-center text-gray-600">
+                <p className="font-semibold mb-2">
+                  Brak obrazka dla tego dnia.
+                </p>
+                <p className="text-sm">
+                  Upewnij się, że w folderze <code>data/{classId}</code> istnieje plik <code>{day}.png</code>.
+                </p>
+              </div>
             )}
           </div>
-        </div>
-        <div className="px-6 py-4 bg-winter-light border-t border-gray-200">
-          <button
-            onClick={onClose}
-            className="w-full px-4 py-2 bg-winter-blue text-white rounded-lg hover:bg-winter-dark transition-colors font-semibold"
-          >
-            Zamknij
-          </button>
         </div>
       </div>
     </div>

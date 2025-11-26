@@ -143,6 +143,7 @@ export default function CalendarView({ classId, tasks }) {
           onClose={handleCloseModal}
           task={tasks[selectedDay]}
           day={selectedDay}
+          classId={classId}
         />
       )}
     </div>
