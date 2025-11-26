@@ -2,7 +2,7 @@ import { LockClosedIcon } from '@heroicons/react/24/solid';
 
 export default function DayTile({ day, onClick, isUnlocked: unlocked, isWeekend = false }) {
   const baseClasses =
-    'relative aspect-square rounded-lg shadow-md transition-all duration-300 flex flex-col items-center justify-center p-4';
+    'relative aspect-square rounded-xl shadow-md transition-all duration-300 flex flex-col items-center justify-center p-5 sm:p-6';
 
   const unlockedClasses = unlocked
     ? 'bg-gradient-to-br from-winter-blue to-winter-dark text-white cursor-pointer hover:scale-105 hover:shadow-xl transform'
@@ -25,7 +25,12 @@ export default function DayTile({ day, onClick, isUnlocked: unlocked, isWeekend 
     >
       {day && (
         <>
-          <div className="text-2xl font-bold mb-1">{day}</div>
+          <div className="text-2xl sm:text-3xl font-bold mb-1">{day}</div>
+          {isWeekend && (
+            <div className="text-sm mt-1 opacity-0 select-none">
+              placeholder
+            </div>
+          )}
           {!isWeekend && !unlocked && (
             <div className="flex flex-col items-center mt-1">
               <LockClosedIcon className="w-5 h-5 mb-1" />
