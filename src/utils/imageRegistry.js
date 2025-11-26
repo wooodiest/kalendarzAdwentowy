@@ -1,4 +1,4 @@
-const imageModules = import.meta.glob('../data/class*/**/*.{png,jpg,jpeg}', {
+const imageModules = import.meta.glob('../data/klasa*/**/*.{png,jpg,jpeg}', {
   eager: true,
   as: 'url',
 });
@@ -6,8 +6,8 @@ const imageModules = import.meta.glob('../data/class*/**/*.{png,jpg,jpeg}', {
 const imageMap = {};
 
 Object.entries(imageModules).forEach(([path, url]) => {
-  // Przykład ścieżki: ../data/class1/1.png
-  const match = path.match(/..\/data\/(class[^/]+)\/(\d+)\.(png|jpe?g)$/);
+  // Przykład ścieżki: ../data/klasa1/1.png
+  const match = path.match(/..\/data\/(klasa[^/]+)\/(\d+)\.(png|jpe?g)$/);
   if (!match) return;
 
   const [, classId, day] = match;

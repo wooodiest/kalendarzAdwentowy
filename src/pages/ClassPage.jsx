@@ -1,8 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CalendarView from '../components/CalendarView';
-import class1Data from '../data/class1.json';
-import class4Data from '../data/class4.json';
+
+const classDataModules = import.meta.glob('../data/klasa*/data.json', {
+  eager: true,
+});
+
+const classDataById = Object.entries(classDataModules).reduce(
+  (acc, [path, mod]) => {
+    const match = path.match(/..\/data\/(klasa[^/]+)\/data\.json$/);
+    if (!match) return acc;
+    const [, classKey] = match;
+    acc[classKey] = mod.default ?? mod;
+    return acc;
+  },
+  {},
+);
 
 export default function ClassPage() {
   const { classId } = useParams();
@@ -13,13 +26,8 @@ export default function ClassPage() {
     setLoading(true);
     // Simulate loading data (in a real app, this might be an API call)
     setTimeout(() => {
-      if (classId === 'class1') {
-        setTasks(class1Data);
-      } else if (classId === 'class4') {
-        setTasks(class4Data);
-      } else {
-        setTasks(null);
-      }
+      const data = classDataById[classId];
+      setTasks(data || null);
       setLoading(false);
     }, 100);
   }, [classId]);

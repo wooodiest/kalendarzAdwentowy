@@ -13,18 +13,18 @@ export default function ClassSelector() {
   return (
     <div className="flex gap-4 justify-center items-center mb-6">
       <Button
-        color={currentClass === 'class1' ? 'blue' : 'gray'}
-        onClick={() => handleClassChange('class1')}
+        color={currentClass === 'klasa1' ? 'blue' : 'gray'}
+        onClick={() => handleClassChange('klasa1')}
         className="px-6 py-2"
       >
         Klasa 1
       </Button>
       <Button
-        color={currentClass === 'class4' ? 'blue' : 'gray'}
-        onClick={() => handleClassChange('class4')}
+        color={currentClass === 'klasa2' ? 'blue' : 'gray'}
+        onClick={() => handleClassChange('klasa2')}
         className="px-6 py-2"
       >
-        Klasa 4
+        Klasa 2
       </Button>
     </div>
   );
