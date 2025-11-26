@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import DayTile from './DayTile';
 import DayModal from './DayModal';
-import { isUnlocked, getDayDate } from '../utils/dateUtils';
+import { isUnlocked } from '../utils/dateUtils';
 
 export default function CalendarView({ classId, tasks }) {
   const [selectedDay, setSelectedDay] = useState(null);
@@ -34,18 +34,15 @@ export default function CalendarView({ classId, tasks }) {
   const startOfDecember = new Date(currentYear, 11, 1);
   const firstDayIndex = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
 
-  const weeks = Array.from({ length: 6 }, () => Array(7).fill(null));
+  // 4 tygodnie (4 x 7 = 28) – od 1 do 28 grudnia
+  const weeks = Array.from({ length: 4 }, () => Array(7).fill(null));
 
-  for (let day = 1; day <= 24; day += 1) {
+  for (let day = 1; day <= 28; day += 1) {
     const positionIndex = firstDayIndex + (day - 1);
     const weekIndex = Math.floor(positionIndex / 7);
     const dayIndex = positionIndex % 7;
 
-    const date = getDayDate(day);
-    const jsDay = date.getDay(); // 0 = Sunday, 6 = Saturday
-    const isWeekend = jsDay === 0 || jsDay === 6;
-
-    if (!isWeekend && weekIndex < weeks.length) {
+    if (weekIndex < weeks.length) {
       weeks[weekIndex][dayIndex] = day;
     }
   }
@@ -111,17 +108,7 @@ export default function CalendarView({ classId, tasks }) {
             week.map((day, dIndex) => {
               const isWeekendCol = dIndex >= 5; // So, Nd
 
-              if (isWeekendCol) {
-                return (
-                  <DayTile
-                    key={`weekend-${wIndex}-${dIndex}`}
-                    day=""
-                    isUnlocked={false}
-                    isWeekend
-                  />
-                );
-              }
-
+              // Puste miejsca przed 1 grudnia – przezroczyste
               if (!day) {
                 return (
                   <div
@@ -131,15 +118,18 @@ export default function CalendarView({ classId, tasks }) {
                 );
               }
 
+              const isAfter24 = day > 24;
+              const isNonTaskDay = isWeekendCol || isAfter24;
               const now = getNowForDebug();
-              const unlocked = isUnlocked(day, now);
+              const unlocked = !isNonTaskDay && day <= 24 && isUnlocked(day, now);
 
               return (
                 <DayTile
-                  key={day}
+                  key={`${day}-${wIndex}-${dIndex}`}
                   day={day}
                   onClick={() => handleDayClick(day)}
                   isUnlocked={unlocked}
+                  isWeekend={isNonTaskDay}
                 />
               );
             }),

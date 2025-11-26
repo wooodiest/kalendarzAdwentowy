@@ -23,16 +23,16 @@ export default function DayTile({ day, onClick, isUnlocked: unlocked, isWeekend 
         }
       } : undefined}
     >
-      {!isWeekend && (
+      {day && (
         <>
           <div className="text-2xl font-bold mb-1">{day}</div>
-          {!unlocked && (
+          {!isWeekend && !unlocked && (
             <div className="flex flex-col items-center mt-1">
               <LockClosedIcon className="w-5 h-5 mb-1" />
               <span className="text-xs"></span>
             </div>
           )}
-          {unlocked && (
+          {!isWeekend && unlocked && (
             <div className="text-sm mt-1 opacity-90">Kliknij!</div>
           )}
         </>
