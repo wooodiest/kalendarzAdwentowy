@@ -35,9 +35,9 @@ export default function CalendarView({ classId, tasks }) {
   const firstDayIndex = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
 
   // 4 tygodnie (4 x 7 = 28) – od 1 do 28 grudnia
-  const weeks = Array.from({ length: 4 }, () => Array(7).fill(null));
+  const weeks = Array.from({ length: 3 }, () => Array(7).fill(null));
 
-  for (let day = 1; day <= 28; day += 1) {
+  for (let day = 1; day <= 21; day += 1) {
     const positionIndex = firstDayIndex + (day - 1);
     const weekIndex = Math.floor(positionIndex / 7);
     const dayIndex = positionIndex % 7;
@@ -80,7 +80,7 @@ export default function CalendarView({ classId, tasks }) {
                   className="border border-yellow-300 rounded px-2 py-1 bg-white text-yellow-900 text-sm"
                 >
                   <option value="">(dzisiajsza data)</option>
-                  {Array.from({ length: 24 }, (_, i) => i + 1).map((d) => (
+                  {Array.from({ length: 21 }, (_, i) => i + 1).map((d) => (
                     <option key={d} value={d}>
                       {d} grudnia
                     </option>
