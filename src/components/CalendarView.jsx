@@ -6,9 +6,20 @@ import { isUnlocked } from '../utils/dateUtils';
 export default function CalendarView({ classId, tasks }) {
   const [selectedDay, setSelectedDay] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [debugMode, setDebugMode] = useState(false);
+  const [mockDay, setMockDay] = useState('');
+
+  const getNowForDebug = () => {
+    if (!debugMode || !mockDay) return new Date();
+
+    const currentYear = new Date().getFullYear();
+    const dayNumber = Number(mockDay);
+    return new Date(currentYear, 11, dayNumber);
+  };
 
   const handleDayClick = (day) => {
-    if (isUnlocked(day)) {
+    const now = getNowForDebug();
+    if (isUnlocked(day, now)) {
       setSelectedDay(day);
       setShowModal(true);
     }
@@ -30,11 +41,46 @@ export default function CalendarView({ classId, tasks }) {
         <p className="text-gray-600">
           Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
         </p>
+
+        {import.meta.env.DEV && (
+          <div className="mt-4 flex flex-col items-center gap-2 px-3 py-3 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm">
+            <div className="inline-flex items-center gap-2">
+              <label className="inline-flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="rounded border-gray-300"
+                  checked={debugMode}
+                  onChange={(e) => setDebugMode(e.target.checked)}
+                />
+                <span>Tryb testowy</span>
+              </label>
+            </div>
+
+            {debugMode && (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span>Symuluj dzień grudnia:</span>
+                <select
+                  value={mockDay}
+                  onChange={(e) => setMockDay(e.target.value)}
+                  className="border border-yellow-300 rounded px-2 py-1 bg-white text-yellow-900 text-sm"
+                >
+                  <option value="">(dzisiajsza data)</option>
+                  {Array.from({ length: 24 }, (_, i) => i + 1).map((d) => (
+                    <option key={d} value={d}>
+                      {d} grudnia
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-4 sm:grid-cols-6 gap-4">
         {days.map((day) => {
-          const unlocked = isUnlocked(day);
+          const now = getNowForDebug();
+          const unlocked = isUnlocked(day, now);
           return (
             <DayTile
               key={day}
