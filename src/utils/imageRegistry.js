@@ -6,7 +6,6 @@ const imageModules = import.meta.glob('../data/klasa*/**/*.{png,jpg,jpeg}', {
 const imageMap = {};
 
 Object.entries(imageModules).forEach(([path, url]) => {
-  // Przykład ścieżki: ../data/klasa1/1.png
   const match = path.match(/..\/data\/(klasa[^/]+)\/(\d+)\.(png|jpe?g)$/);
   if (!match) return;
 

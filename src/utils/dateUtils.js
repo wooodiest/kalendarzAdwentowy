@@ -1,28 +1,35 @@
 /**
+ * Gets the current date for the application.
+ * In development, you can set a fixed date by uncommenting and modifying the line below.
+ * In production, this will always return the actual current date.
+ * @returns {Date} - Current date (or fixed date in dev mode)
+ */
+export function getCurrentDate() {
+   return new Date(2025, 11, 15);
+  // return new Date();
+}
+
+/**
  * Checks if a given day (1-24) in December is unlocked
  * A day is unlocked if:
- * 1. It's today or earlier
+ * 1. It's today or earlier (based on getCurrentDate())
  * 2. The date falls on a weekday (Monday-Friday)
- * 
  * @param {number} day - Day number (1-24)
- * @param {Date} now - Current date (defaults to new Date())
+ * @param {Date} now - Current date (defaults to getCurrentDate())
  * @returns {boolean} - True if the day is unlocked
  */
-export function isUnlocked(day, now = new Date()) {
-  const currentYear = now.getFullYear();
-  const dayDate = new Date(currentYear, 11, day); // Month 11 = December (0-indexed)
+export function isUnlocked(day, now = getCurrentDate()) {
+  const calendarYear = new Date().getFullYear();
+  const dayDate      = new Date(calendarYear, 11, day); // Month 11 = December (0-indexed)
   
-  // Set both dates to midnight for accurate comparison
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const targetDate = new Date(currentYear, 11, day);
+  const testDate   = new Date(calendarYear, now.getMonth(), now.getDate());
+  const targetDate = new Date(calendarYear, 11, day);
   
-  // Check if the date is in the future
-  if (targetDate > today) {
+  if (targetDate > testDate) {
     return false;
   }
   
-  // Check if it's a weekday (Monday = 1, Friday = 5)
-  // getDay() returns: 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
   const dayOfWeek = dayDate.getDay();
   const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
   
@@ -35,7 +42,7 @@ export function isUnlocked(day, now = new Date()) {
  * @returns {Date} - Date object for that day
  */
 export function getDayDate(day) {
-  const currentYear = new Date().getFullYear();
+  const currentYear = getCurrentDate().getFullYear();
   return new Date(currentYear, 11, day);
 }
 

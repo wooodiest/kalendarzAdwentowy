@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DayTile from './DayTile';
 import DayModal from './DayModal';
-import { isUnlocked } from '../utils/dateUtils';
+import { isUnlocked, getCurrentDate } from '../utils/dateUtils';
 
 export default function CalendarView({ classId, tasks }) {
   const [selectedDay, setSelectedDay] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [debugMode, setDebugMode] = useState(false);
-  const [mockDay, setMockDay] = useState('');
-
-  const getNowForDebug = () => {
-    if (!debugMode || !mockDay) return new Date();
-
-    const currentYear = new Date().getFullYear();
-    const dayNumber = Number(mockDay);
-    return new Date(currentYear, 11, dayNumber);
-  };
+  const [showModal,   setShowModal]   = useState(false);
 
   const handleDayClick = (day) => {
-    const now = getNowForDebug();
-    if (isUnlocked(day, now)) {
+    if (isUnlocked(day)) {
       setSelectedDay(day);
       setShowModal(true);
     }
@@ -30,14 +19,15 @@ export default function CalendarView({ classId, tasks }) {
     setSelectedDay(null);
   };
 
-  const currentYear = new Date().getFullYear();
-  const startOfDecember = new Date(currentYear, 11, 1);
+  // Kalendarz zawsze pokazuje aktualny rok (2025), ale sprawdzanie odblokowania używa getCurrentDate()
+  const calendarYear = new Date().getFullYear();
+  const startOfDecember = new Date(calendarYear, 11, 1);
   const firstDayIndex = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
 
   // 4 tygodnie (4 x 7 = 28) – od 1 do 28 grudnia
-  const weeks = Array.from({ length: 3 }, () => Array(7).fill(null));
+  const weeks = Array.from({ length: 4 }, () => Array(7).fill(null));
 
-  for (let day = 1; day <= 21; day += 1) {
+  for (let day = 1; day <= 28; day += 1) {
     const positionIndex = firstDayIndex + (day - 1);
     const weekIndex = Math.floor(positionIndex / 7);
     const dayIndex = positionIndex % 7;
@@ -56,40 +46,6 @@ export default function CalendarView({ classId, tasks }) {
         <p className="text-gray-600 text-sm sm:text-base">
           Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
         </p>
-
-        {import.meta.env.DEV && (
-          <div className="mt-4 flex flex-col items-center gap-2 px-3 py-3 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm">
-            <div className="inline-flex items-center gap-2">
-              <label className="inline-flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300"
-                  checked={debugMode}
-                  onChange={(e) => setDebugMode(e.target.checked)}
-                />
-                <span>Tryb testowy</span>
-              </label>
-            </div>
-
-            {debugMode && (
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <span>Symuluj dzień grudnia:</span>
-                <select
-                  value={mockDay}
-                  onChange={(e) => setMockDay(e.target.value)}
-                  className="border border-yellow-300 rounded px-2 py-1 bg-white text-yellow-900 text-sm"
-                >
-                  <option value="">(dzisiajsza data)</option>
-                  {Array.from({ length: 21 }, (_, i) => i + 1).map((d) => (
-                    <option key={d} value={d}>
-                      {d} grudnia
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       <div className="w-full bg-white/90 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm">
@@ -120,8 +76,7 @@ export default function CalendarView({ classId, tasks }) {
 
               const isAfter24 = day > 24;
               const isNonTaskDay = isWeekendCol || isAfter24;
-              const now = getNowForDebug();
-              const unlocked = !isNonTaskDay && day <= 24 && isUnlocked(day, now);
+              const unlocked = !isNonTaskDay && day <= 24 && isUnlocked(day);
 
               return (
                 <DayTile
