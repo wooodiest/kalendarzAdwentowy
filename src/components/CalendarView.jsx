@@ -92,7 +92,7 @@ export default function CalendarView({ classId, tasks }) {
         )}
       </div>
 
-      <div className="w-full bg-white/80 rounded-3xl shadow-lg p-6 sm:p-8">
+      <div className="w-full bg-white/90 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm">
         <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center text-gray-600">
           <div className="uppercase">Pn</div>
           <div className="uppercase">Wt</div>
