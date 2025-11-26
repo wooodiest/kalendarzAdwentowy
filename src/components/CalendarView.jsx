@@ -19,18 +19,17 @@ export default function CalendarView({ classId, tasks }) {
     setSelectedDay(null);
   };
 
-  // Kalendarz zawsze pokazuje aktualny rok (2025), ale sprawdzanie odblokowania używa getCurrentDate()
-  const calendarYear = new Date().getFullYear();
+  const calendarYear    = new Date().getFullYear();
   const startOfDecember = new Date(calendarYear, 11, 1);
-  const firstDayIndex = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
+  const firstDayIndex   = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
 
   // 4 tygodnie (4 x 7 = 28) – od 1 do 28 grudnia
   const weeks = Array.from({ length: 4 }, () => Array(7).fill(null));
 
   for (let day = 1; day <= 28; day += 1) {
     const positionIndex = firstDayIndex + (day - 1);
-    const weekIndex = Math.floor(positionIndex / 7);
-    const dayIndex = positionIndex % 7;
+    const weekIndex     = Math.floor(positionIndex / 7);
+    const dayIndex      = positionIndex % 7;
 
     if (weekIndex < weeks.length) {
       weeks[weekIndex][dayIndex] = day;
@@ -39,15 +38,7 @@ export default function CalendarView({ classId, tasks }) {
 
   return (
     <div className="w-full max-w-5xl mx-auto p-6 sm:p-8">
-      <div className="mb-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-winter-dark mb-3">
-          Kalendarz Adwentowy - Klasa {classId}
-        </h2>
-        <p className="text-gray-600 text-sm sm:text-base">
-          Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
-        </p>
-      </div>
-
+      
       <div className="w-full bg-white/90 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm">
         <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center text-gray-600">
           <div className="uppercase">Pn</div>
@@ -64,7 +55,6 @@ export default function CalendarView({ classId, tasks }) {
             week.map((day, dIndex) => {
               const isWeekendCol = dIndex >= 5; // So, Nd
 
-              // Puste miejsca przed 1 grudnia – przezroczyste
               if (!day) {
                 return (
                   <div
@@ -74,9 +64,9 @@ export default function CalendarView({ classId, tasks }) {
                 );
               }
 
-              const isAfter24 = day > 24;
+              const isAfter24    = day > 24;
               const isNonTaskDay = isWeekendCol || isAfter24;
-              const unlocked = !isNonTaskDay && day <= 24 && isUnlocked(day);
+              const unlocked     = !isNonTaskDay && day <= 24 && isUnlocked(day);
 
               return (
                 <DayTile
@@ -90,6 +80,12 @@ export default function CalendarView({ classId, tasks }) {
             }),
           )}
         </div>
+      </div>
+
+      <div className="mb-8 text-center"> 
+        <p className="text-gray-600 text-sm sm:text-base">
+          Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
+        </p>
       </div>
 
       {selectedDay && tasks[selectedDay] && (

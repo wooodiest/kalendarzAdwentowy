@@ -40,9 +40,6 @@ export default function DayModal({ show, onClose, task, day, classId }) {
                 <p className="font-semibold mb-2">
                   Brak obrazka z zadaniem dla tego dnia.
                 </p>
-                <p className="text-sm">
-                  Upewnij się, że w folderze <code>data/{classId}</code> istnieje plik <code>{day}.png</code>.
-                </p>
               </div>
             )}
           </div>

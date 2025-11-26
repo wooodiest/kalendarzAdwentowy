@@ -23,7 +23,7 @@ export default function Layout({ children }) {
 
       <footer className="mt-16 py-8 text-center border-t border-gray-200 bg-white/50">
         <p className="text-gray-600 text-sm">
-          © 2025 Kalendarz Adwentowy - Matematyka dla Klas 1 i 4
+          © 2025 Matematyczny Kalendarz Adwentowy
         </p>
       </footer>
     </div>
