@@ -1,26 +1,20 @@
-const imageModules = import.meta.glob('../data/klasa*/**/*.{png,jpg,jpeg}', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
+const extensions = ["png", "jpg", "jpeg"];
 
-const imageMap = {};
+export async function getTaskImage(classId, day) {
+  if (!classId || !day) return null;
 
-Object.entries(imageModules).forEach(([path, url]) => {
-  const match = path.match(/..\/data\/(klasa[^/]+)\/(\d+)\.(png|jpe?g)$/);
-  if (!match) return;
+  for (const ext of extensions) {
+    const url = `/data/${classId}/${day}.${ext}`;
 
-  const [, classId, day] = match;
-  if (!imageMap[classId]) {
-    imageMap[classId] = {};
+    try {
+      const res = await fetch(url, { method: "HEAD" });
+      if (res.ok) {
+        return url;
+      }
+    } catch {
+      continue;
+    }
   }
 
-  imageMap[classId][day] = url;
-});
-
-export function getTaskImage(classId, day) {
-  if (!classId || !day) return null;
-  return imageMap[classId]?.[String(day)] ?? null;
+  return null;
 }
-
-

@@ -1,10 +1,29 @@
+import { useState, useEffect } from 'react';
 import { getTaskImage } from '../utils/imageRegistry';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function DayModal({ show, onClose, task, day, classId }) {
-  if (!show || !task) return null;
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageLoading, setImageLoading] = useState(true);
 
-  const imageUrl = getTaskImage(classId, day);
+  useEffect(() => {
+    if (!show || !task || !classId || !day) {
+      setImageUrl(null);
+      setImageLoading(false);
+      return;
+    }
+
+    async function loadImage() {
+      setImageLoading(true);
+      const url = await getTaskImage(classId, day);
+      setImageUrl(url);
+      setImageLoading(false);
+    }
+
+    loadImage();
+  }, [show, task, classId, day]);
+
+  if (!show || !task) return null;
 
   return (
     <div 
@@ -28,17 +47,28 @@ export default function DayModal({ show, onClose, task, day, classId }) {
           </button>
         </div>
         <div className="bg-white p-3 sm:p-4">
-          <div className="flex justify-center">
-            {imageUrl ? (
+          <div className="flex justify-center min-h-[200px] items-center">
+            {imageLoading ? (
+              <div className="px-6 py-10 text-center text-gray-400">
+                <p className="font-medium">Ładowanie obrazka...</p>
+              </div>
+            ) : imageUrl ? (
               <img
                 src={imageUrl}
                 alt={`Zadanie dla dnia ${day}`}
                 className="max-h-[80vh] max-w-full object-contain rounded-lg shadow-lg bg-white"
+                onError={() => {
+                  setImageUrl(null);
+                  setImageLoading(false);
+                }}
               />
             ) : (
               <div className="px-6 py-10 text-center text-gray-600">
                 <p className="font-semibold mb-2">
                   Brak obrazka z zadaniem dla tego dnia.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Upewnij się, że w folderze <code>public/data/{classId}</code> istnieje plik <code>{day}.png</code> lub <code>{day}.jpg</code>.
                 </p>
               </div>
             )}
