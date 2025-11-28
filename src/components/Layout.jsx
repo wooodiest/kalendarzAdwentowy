@@ -4,12 +4,12 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-winter-light-soft via-white to-winter-light">
       <header className="bg-gradient-to-r from-winter-blue via-winter-blue-dark to-winter-dark text-white shadow-xl">
-        <div className="container mx-auto px-4 py-8 sm:py-10">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 drop-shadow-md">
+        <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 lg:py-10">
+          <div className="text-center mb-4 sm:mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1 sm:mb-2 drop-shadow-md">
               Kalendarz Adwentowy
             </h1>
-            <p className="text-winter-light text-sm sm:text-base md:text-lg font-medium">
+            <p className="text-winter-light text-xs sm:text-sm md:text-base lg:text-lg font-medium">
               Zadania Matematyczne
             </p>
           </div>
@@ -17,7 +17,7 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-4 sm:py-6">
+      <main className="container mx-auto px-2 sm:px-4 py-2 sm:py-4 md:py-6">
         {children}
       </main>
 

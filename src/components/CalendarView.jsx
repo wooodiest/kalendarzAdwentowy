@@ -23,10 +23,10 @@ export default function CalendarView({ classId, tasks }) {
   const startOfDecember = new Date(calendarYear, 11, 1);
   const firstDayIndex   = (startOfDecember.getDay() + 6) % 7; // 0 = Monday, 6 = Sunday
 
-  // 4 tygodnie (4 x 7 = 28) – od 1 do 28 grudnia
-  const weeks = Array.from({ length: 4 }, () => Array(7).fill(null));
+  // 3 tygodnie (3 x 7 = 28) – od 1 do 21 grudnia
+  const weeks = Array.from({ length: 3 }, () => Array(7).fill(null));
 
-  for (let day = 1; day <= 28; day += 1) {
+  for (let day = 1; day <= 21; day += 1) {
     const positionIndex = firstDayIndex + (day - 1);
     const weekIndex     = Math.floor(positionIndex / 7);
     const dayIndex      = positionIndex % 7;
@@ -37,9 +37,9 @@ export default function CalendarView({ classId, tasks }) {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8">
-      <div className="w-full bg-white/95 rounded-3xl shadow-xl p-6 sm:p-8 backdrop-blur-sm border border-winter-light">
-        <div className="grid grid-cols-7 gap-2 sm:gap-3 mb-4 text-xs sm:text-sm font-semibold text-center">
+    <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6 pb-4 sm:pb-6 md:pb-8">
+      <div className="w-full bg-white/95 rounded-2xl sm:rounded-3xl shadow-xl p-3 sm:p-4 md:p-6 lg:p-8 backdrop-blur-sm border border-winter-light">
+        <div className="grid grid-cols-7 gap-1 sm:gap-2 md:gap-3 mb-2 sm:mb-3 md:mb-4 text-[10px] sm:text-xs md:text-sm font-semibold text-center">
           <div className="uppercase text-winter-dark">Pn</div>
           <div className="uppercase text-winter-dark">Wt</div>
           <div className="uppercase text-winter-dark">Śr</div>
@@ -49,7 +49,7 @@ export default function CalendarView({ classId, tasks }) {
           <div className="uppercase text-gray-400">Nd</div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2.5 sm:gap-3.5">
+        <div className="grid grid-cols-7 gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3.5">
           {weeks.map((week, wIndex) =>
             week.map((day, dIndex) => {
               const isWeekendCol = dIndex >= 5; // So, Nd
@@ -81,8 +81,8 @@ export default function CalendarView({ classId, tasks }) {
         </div>
       </div>
 
-      <div className="mt-6 sm:mt-8 mb-4 text-center"> 
-        <p className="text-winter-dark/70 text-sm sm:text-base">
+      <div className="mt-4 sm:mt-6 md:mt-8 mb-2 sm:mb-4 text-center px-2"> 
+        <p className="text-winter-dark/70 text-xs sm:text-sm md:text-base">
           Kliknij na odblokowany dzień, aby zobaczyć zadanie matematyczne
         </p>
       </div>

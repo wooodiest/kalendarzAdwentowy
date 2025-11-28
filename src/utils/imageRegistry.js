@@ -1,9 +1,5 @@
 const extensions = ["png", "jpg", "jpeg"];
 
-/**
- * Sprawdza czy obrazek istnieje używając obiektu Image()
- * To działa lepiej w produkcji niż fetch HEAD
- */
 function checkImageExists(url) {
   return new Promise((resolve) => {
     const img = new Image();
