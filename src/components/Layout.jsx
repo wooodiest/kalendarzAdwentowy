@@ -7,11 +7,9 @@ export default function Layout({ children }) {
         <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 lg:py-10">
           <div className="text-center mb-4 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1 sm:mb-2 drop-shadow-md">
-              Kalendarz Adwentowy
+            Matematyczny Kalendarz Adwentowy
             </h1>
-            <p className="text-winter-light text-xs sm:text-sm md:text-base lg:text-lg font-medium">
-              Zadania Matematyczne
-            </p>
+            
           </div>
           <ClassSelector />
         </div>
