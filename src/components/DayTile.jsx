@@ -25,21 +25,20 @@ export default function DayTile({ day, onClick, isUnlocked: unlocked, isWeekend 
     >
       {day && (
         <>
-          <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-0.5 sm:mb-1">{day}</div>
-          {isWeekend && (
-            <div className="text-sm mt-1 opacity-0 select-none">
-              placeholder
-            </div>
-          )}
-          {!isWeekend && !unlocked && (
-            <div className="flex flex-col items-center mt-0.5 sm:mt-1">
-              <LockClosedIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mb-0.5 sm:mb-1" />
-              <span className="text-xs"></span>
-            </div>
-          )}
-          {!isWeekend && unlocked && (
-            <div className="text-[10px] sm:text-xs md:text-sm mt-0.5 sm:mt-1 opacity-90">Kliknij!</div>
-          )}
+          <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-0.5 sm:mb-1 leading-none">{day}</div>
+          <div className="h-[20px] sm:h-[24px] md:h-[28px] flex items-center justify-center">
+            {isWeekend ? (
+              <div className="text-sm opacity-0 select-none pointer-events-none">
+                placeholder
+              </div>
+            ) : !unlocked ? (
+              <div className="flex flex-col items-center justify-center">
+                <LockClosedIcon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+              </div>
+            ) : (
+              <div className="text-[10px] sm:text-xs md:text-sm opacity-90 leading-tight">Kliknij!</div>
+            )}
+          </div>
         </>
       )}
     </div>
