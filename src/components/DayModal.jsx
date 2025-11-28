@@ -67,9 +67,6 @@ export default function DayModal({ show, onClose, task, day, classId }) {
                 <p className="font-semibold mb-2 text-sm sm:text-base">
                   Brak obrazka z zadaniem dla tego dnia.
                 </p>
-                <p className="text-xs sm:text-sm text-gray-500 px-2">
-                  Upewnij się, że w folderze <code className="text-xs">public/data/{classId}</code> istnieje plik <code className="text-xs">{day}.png</code> lub <code className="text-xs">{day}.jpg</code>.
-                </p>
               </div>
             )}
           </div>
