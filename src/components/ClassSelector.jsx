@@ -10,8 +10,8 @@ export default function ClassSelector() {
   };
 
   const classes = [
-    { id: 'klasa1', label: 'Klasa 1' },
-    { id: 'klasa2', label: 'Klasa 2' },
+    { id: 'klasa-1-liceum', label: 'Klasa 1 - liceum' },
+    { id: 'technikum', label: 'Technikum' },
   ];
 
   return (
