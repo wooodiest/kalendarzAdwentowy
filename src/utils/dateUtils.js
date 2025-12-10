@@ -5,8 +5,8 @@
  * @returns {Date} - Current date (or fixed date in dev mode)
  */
 export function getCurrentDate() {
-  /// return new Date(2025, 11, 8);
-  return new Date();
+  /// return new Date(2025, 11, 11);
+   return new Date();
 }
 
 /**
